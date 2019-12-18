@@ -1,0 +1,45 @@
+{
+  "name": "github-jira-links",
+  "version": "1.0.0",
+  "license": "ISC",
+  "author": "Lenovo Software",
+  "scripts": {
+    "build:chrome": "webpack --config=./webpack/webpack.prod.js --env.platform=chrome",
+    "build:dev:chrome": "webpack --config=./webpack/webpack.dev.js --env.platform=chrome",
+    "watch:dev:chrome": "webpack --config=./webpack/webpack.dev.js --env.platform=chrome --env.hotreloading",
+    "package:chrome": "",
+    "publish:chrome": "",
+    "version:patch:chrome": "",
+    "version:minor:chrome": "",
+    "version:major:chrome": "",
+    "zip:chrome": ""
+  },
+  "dependencies": {
+    "vue": "2.6.10",
+    "vue-class-component": "7.1.0",
+    "vue-property-decorator": "8.2.1",
+    "vue-router": "3.1.2",
+    "vuetify": "2.0.20",
+    "vuex": "3.1.1",
+    "vuex-class": "0.3.2",
+    "vuex-typescript": "3.0.2",
+    "webextension-polyfill": "0.5.0"
+  },
+  "devDependencies": {
+    "@mdi/font": "^4.5.95",
+    "@types/firefox-webext-browser": "70.0.1",
+    "@types/node": "^10.14.22",
+    "@types/webpack-env": "^1.14.1",
+    "clean-webpack-plugin": "3.0.0",
+    "copy-webpack-plugin": "5.0.4",
+    "fork-ts-checker-webpack-plugin": "1.5.0",
+    "hard-source-webpack-plugin": "0.13.1",
+    "html-webpack-plugin": "^4.0.0-beta.11",
+    "ts-loader": "6.0.4",
+    "typescript": "^3.7.3",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.9",
+    "webpack-extension-reloader": "1.0.1",
+    "webpack-merge": "4.2.2"
+  }
+}
