@@ -1,13 +1,13 @@
 {
-  "name": "GitHub Jira Links",
+  "name": "Jira GitHub Links",
   "version": "1.44.0",
   "manifest_version": 2,
   "minimum_chrome_version": "53",
-  "description": "GitHub Jira Links",
+  "description": "Jira GitHub Links",
   "icons": {},
   "browser_action": {
     "default_icon": {},
-    "default_title": "GitHub Jira Links"
+    "default_title": "Jira GitHub Links"
   },
   "background": {
     "page": "background.html",
