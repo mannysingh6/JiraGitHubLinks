@@ -25,7 +25,15 @@ const _fetch = async ({ endpoint, method = 'GET', withAuth = true, body }: RestR
   };
   if (withAuth) {
     const token = await LocalStorageManager.getToken();
-    headers['Authorization'] = `token ${token}`;
+    if (token) {
+      headers['Authorization'] = `token ${token}`;
+    } else {
+      await LocalStorageManager.clearAuthData();
+      return {
+        ok: false,
+        unauthorized: true
+      };
+    }
   }
   const request = new Request(endpoint, {
     method: method,
@@ -46,7 +54,7 @@ const _fetch = async ({ endpoint, method = 'GET', withAuth = true, body }: RestR
       if (response.status === 401) {
         await LocalStorageManager.clearAuthData();
         return {
-          ok: response.ok,
+          ok: false,
           unauthorized: true
         };
       } else {

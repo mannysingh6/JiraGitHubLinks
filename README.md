@@ -1,3 +1,3 @@
 # JiraGitHubLinks
 
-A brower extension used to link GitHub PRs into JIRA tickets
+A brower extension used to link GitHub PRs in JIRA tickets

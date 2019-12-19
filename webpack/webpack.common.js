@@ -14,6 +14,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestBuilderPlugin = require('./plugins/manifest-builder-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = env => {
   const root = path.join(__dirname, '..');
@@ -100,6 +101,21 @@ module.exports = env => {
           loader: 'ts-loader',
           exclude: /node_modules/
         },
+        // this will apply to both plain `.js` files
+        // AND `<script>` blocks in `.vue` files
+        {
+          test: /\.js$/,
+          loader: 'babel-loader'
+        },
+        // this will apply to both plain `.css` files
+        // AND `<style>` blocks in `.vue` files
+        {
+          test: /\.css$/,
+          use: [
+            'vue-style-loader',
+            'css-loader'
+          ]
+        },
         {
           test: /\.(jpg|png|svg|eot|woff|woff2|ttf)$/,
           use: 'file-loader',
@@ -108,6 +124,7 @@ module.exports = env => {
     },
 
     plugins: [
+      new VueLoaderPlugin(),
       ...templateNames.map(name => {
         return new HtmlWebpackPlugin({
           filename: `${name}.html`,
