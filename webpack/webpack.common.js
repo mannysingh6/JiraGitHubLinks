@@ -15,6 +15,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestBuilderPlugin = require('./plugins/manifest-builder-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = env => {
   const root = path.join(__dirname, '..');
@@ -105,6 +106,30 @@ module.exports = env => {
           loader: 'babel-loader',
           exclude: /node_modules/
         },
+        {
+          test: /\.s(c|a)ss$/,
+          use: [
+            'vue-style-loader',
+            'css-loader',
+            {
+              loader: 'sass-loader',
+              // Requires sass-loader@^7.0.0
+              options: {
+                implementation: require('sass'),
+                fiber: require('fibers'),
+                indentedSyntax: true // optional
+              },
+              // Requires sass-loader@^8.0.0
+              options: {
+                implementation: require('sass'),
+                sassOptions: {
+                  fiber: require('fibers'),
+                  indentedSyntax: true // optional
+                },
+              },
+            },
+          ],
+        },
         // this will apply to both plain `.css` files
         // AND `<style>` blocks in `.vue` files
         {
@@ -123,6 +148,7 @@ module.exports = env => {
 
     plugins: [
       new VueLoaderPlugin(),
+      new VuetifyLoaderPlugin(),
       ...templateNames.map(name => {
         return new HtmlWebpackPlugin({
           filename: `${name}.html`,

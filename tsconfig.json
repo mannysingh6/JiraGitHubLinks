@@ -29,8 +29,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "typings/**/*",
-    "ext/**/*"
+    "ext/**/*",
+    "typings/**/*"
   ],
   "exclude": [
     "node_modules",
