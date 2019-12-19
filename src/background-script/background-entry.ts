@@ -8,9 +8,9 @@ background.init();
 /**
  * Set the default page for the popup.
  */
-// xbrowser.browserAction.setPopup({
-//   popup: 'popup.html'
-// });
+xbrowser.browserAction.setPopup({
+  popup: 'popup.html'
+});
 
 // it will automatically load content_scripts/styles on all current tabs anytime the background script reloads
 // This really helps on chrome during dev after we reload the extension.

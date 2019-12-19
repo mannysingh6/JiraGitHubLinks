@@ -9,8 +9,9 @@
  * Created on June 24, 2019.
  */
 
-import * as browser from 'webextension-polyfill';
+// import * as browserApi from 'webextension-polyfill';
+const browserApi = require('webextension-polyfill');
 
 if (typeof (window as any).xbrowser === 'undefined') {
-  (window as any).xbrowser = browser;
+  (window as any).xbrowser = browserApi;
 }

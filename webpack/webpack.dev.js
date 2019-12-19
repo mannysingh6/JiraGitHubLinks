@@ -25,12 +25,12 @@ module.exports = env => {
     mode: 'development',
     watch: env.hotreloading === true,
     plugins: [
-      new ForkTsCheckerWebpackPlugin(),
+      // new ForkTsCheckerWebpackPlugin(),
 
       // For development, this plugin will speed up a build.
       // Note: In order to see results, you'll need to run webpack twice with this plugin:
       // the first build will take the normal amount of time. The second build will be significantly faster.
-      new HardSourceWebpackPlugin()
+      // new HardSourceWebpackPlugin()
     ]
   });
 

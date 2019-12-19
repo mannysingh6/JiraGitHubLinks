@@ -30,8 +30,10 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "typings/**/*",
+    "ext/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
