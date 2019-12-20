@@ -13,28 +13,12 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const WebpackSynchronizableShellPlugin = require('webpack-synchronizable-shell-plugin');
 
 module.exports = env => {
 
   env.production = true;
   const config = merge(common(env), {
-    mode: 'production',
-    plugins: [
-      // This will update the tld.js library with the latest publicsuffixlist.
-      // This does an unshift and is set to block and not be parallel so that it runs before building.
-      new WebpackSynchronizableShellPlugin({
-        onBuildStart: {
-          scripts: [
-            'echo "Updating tldjs library with latest publicsuffixlist..."',
-            'npm install --no-save --tldjs-update-rules',
-            'echo "Finished updating tldjs library."'
-          ],
-          blocking: true,
-          parallel: false
-        }
-      })
-    ]
+    mode: 'production'
   });
 
   config.plugins.unshift(new CleanWebpackPlugin());
