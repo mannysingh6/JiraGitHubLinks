@@ -57,7 +57,7 @@ ManifestBuilderPlugin.prototype.apply = function (compiler) {
       });
 
       // Create a list of files from chunks, exclude source maps
-      const fileNames = chunksToInclude.map(chunk => chunk.files.filter(file => !file.endsWith('.map')));
+      const fileNames = chunksToInclude.map(chunk => chunk.files.filter(file => file.includes('vendor/') && !file.endsWith('.map')));
 
       // Flatten the array
       const flattenFileNames = [].concat.apply([], fileNames);

@@ -1,6 +1,7 @@
 import { background } from './background';
 import { popupApi } from "./popup-api";
 
+window.debugMessaging = DEBUG_MESSAGING_ENABLED;
 window.getPopupApi = popupApi;
 
 background.init();

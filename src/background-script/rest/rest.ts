@@ -1,4 +1,5 @@
 import { LocalStorageManager } from '@/shared/local-storage-manager';
+import { RestResponse } from '@/shared/models/rest-response';
 
 interface RestRequest {
   endpoint: string,
@@ -6,20 +7,15 @@ interface RestRequest {
   withAuth?: boolean,
   body?: any
 }
-interface RestResponse {
-  ok: boolean;
-  json?: any;
-  unauthorized: boolean;
-}
-export const get = ({ endpoint }: { endpoint: string }) => {
-  return _fetch({ endpoint });
+export const get = <T>({ endpoint }: { endpoint: string }) => {
+  return _fetch<T>({ endpoint });
 }
 
-export const post = ({ endpoint, body }: { endpoint: string, body?: any }) => {
-  return _fetch({ endpoint, method: 'POST', body })
+export const post = <T>({ endpoint, body }: { endpoint: string, body?: any }) => {
+  return _fetch<T>({ endpoint, method: 'POST', body })
 }
 
-const _fetch = async ({ endpoint, method = 'GET', withAuth = true, body }: RestRequest): Promise<RestResponse> => {
+const _fetch = async <T>({ endpoint, method = 'GET', withAuth = true, body }: RestRequest): Promise<RestResponse<T>> => {
   const headers: any = {
     Accept: 'application/json'
   };

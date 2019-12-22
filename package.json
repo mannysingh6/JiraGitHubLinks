@@ -6,6 +6,7 @@
   "scripts": {
     "build:chrome": "webpack --config=./webpack/webpack.prod.js --env.platform=chrome",
     "build:dev:chrome": "webpack --config=./webpack/webpack.dev.js --env.platform=chrome",
+    "build:dev:chrome:debug": "webpack --config=./webpack/webpack.dev.js --env.platform=chrome --env.debug=true",
     "watch:dev:chrome": "webpack --config=./webpack/webpack.dev.js --env.platform=chrome --env.hotreloading",
     "package:chrome": "",
     "publish:chrome": "",
@@ -59,7 +60,7 @@
     "vuetify-loader": "^1.4.3",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
-    "webpack-extension-reloader": "1.0.1",
+    "webpack-extension-reloader": "1.1.4",
     "webpack-merge": "^4.2.2"
   }
 }

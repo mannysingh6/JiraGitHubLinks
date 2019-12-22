@@ -59,7 +59,7 @@ module.exports = env => {
           // vendor chunk
           vendor: {
             // name of the chunk
-            name: "vendor",
+            name: "vendor/vendor",
             // async + async chunks
             chunks: "all",
             // import file path containing node_modules
@@ -71,7 +71,7 @@ module.exports = env => {
           },
           // common chunk
           common: {
-            name: "common",
+            name: "vendor/common",
             minChunks: 2,
             chunks: "all",
             priority: 10,
@@ -139,7 +139,11 @@ module.exports = env => {
           test: /\.(png|jpe?g|gif|webp|mp4|webm|ogg|mp3|wav|flac|aac|woff2?|eot|ttf|otf)(\?.*)?$/,
           loader: "url-loader",
           options: {
-            esModule: false
+            esModule: false,
+            limit: 4096,
+            fallback: {
+              loader: 'file-loader'
+            }
           }
         },
         {
@@ -153,6 +157,9 @@ module.exports = env => {
     },
 
     plugins: [
+      new webpack.DefinePlugin({
+        DEBUG_MESSAGING_ENABLED: (env.debug === true)
+      }),
       new VueLoaderPlugin(),
       new VuetifyLoaderPlugin(),
       ...templateNames.map(name => {

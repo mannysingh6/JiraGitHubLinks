@@ -59,8 +59,9 @@ module.exports = env => {
       port: 9090, // Which port use to create the server
       reloadPage: true, // Force the reload of the page also
       entries: { // The entries used for the content/background scripts
-        contentScript: Object.keys(config.entry).filter(name => name !== backgroundChunkName),
-        background: backgroundChunkName
+        contentScript: 'scripts/content-script',
+        background: backgroundChunkName,
+        popup: 'scripts/popup'
       }
     }));
   }

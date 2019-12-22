@@ -17,8 +17,9 @@
     {
       "run_at": "document_end",
       "matches": [
-        "*://jira.tc.lenovo.com/browse/*",
-        "*://*.atlassian.net/browse/*"
+        "*://jira.tc.lenovo.com/*",
+        "*://jira.stone-ware.com/*",
+        "*://*.atlassian.net/*"
       ],
       "js": [
         "scripts/shared/polyfills.js",
@@ -32,6 +33,7 @@
     "storage",
     "contextMenus",
     "identity",
+    "webNavigation",
     "https://api.github.com/*",
     "https://github.com/*"
   ],

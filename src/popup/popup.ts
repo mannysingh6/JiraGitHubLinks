@@ -4,6 +4,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+window.debugMessaging = DEBUG_MESSAGING_ENABLED;
+
 Vue.config.productionTip = false;
 
 new Vue({
