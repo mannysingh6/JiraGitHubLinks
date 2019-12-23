@@ -1,29 +1,29 @@
 <template>
   <div class="d-flex flex-grow-1 align-center justify-center pa-3">
-    <LogoutBtn :loading="loading" @click="onLogoutClick" />
+    <LoginBtn :loading="loading" @click="onLoginClick" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import LogoutBtn from "../components/LogoutBtn.vue";
+import LoginBtn from "../components/LoginBtn.vue";
 import { getPopupApi } from "../popup-api-util";
 
 @Component({
   components: {
-    LogoutBtn
+    LoginBtn
   }
 })
-export default class Home extends Vue {
+export default class Login extends Vue {
   public loading = false;
 
-  public async onLogoutClick() {
+  public async onLoginClick() {
     this.loading = true;
     try {
       const popupAPI = await getPopupApi();
-      await popupAPI.logout();
-      this.$router.replace("/login");
+      await popupAPI.login();
+      this.$router.replace("/");
     } catch (err) {
       console.error(err);
     }

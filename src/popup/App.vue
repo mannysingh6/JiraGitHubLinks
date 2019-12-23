@@ -1,23 +1,28 @@
 <template>
   <v-app>
     <v-content>
-      <div id="nav">
-        <router-link to="/">Home</router-link>|
-        <router-link to="/about">About</router-link>
+      <div class="d-flex flex-column flex-grow-1">
+        <div class="subtitle-1 font-weight-light header px-3 py-1">Lenovo Internal Extension</div>
+        <router-view />
       </div>
-      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: ProximaNova-Regular, "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 200px;
+  width: 240px;
+  color: var(--v-primaryGrey-base);
+  font-size: 14px;
+  background: linear-gradient(180deg, #ffffff 0.06%, #e1e2e3 100%);
   text-align: center;
-  color: #2c3e50;
-  height: 300px;
-  width: 200px;
+}
+.header {
+  background-color: var(--v-primaryGrey-base);
+  color: white;
 }
 </style>

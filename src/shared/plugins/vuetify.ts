@@ -1,6 +1,7 @@
 // You still need to register Vuetify itself
 // src/plugins/vuetify.js
 
+import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 
@@ -10,7 +11,8 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: '#00838F',
+        primary: '#DE1F64',
+        secondary: '#00838F',
         anchor: '#00838F',
         primaryGrey: '#414243',
         secondaryGrey: '#717273',
@@ -20,7 +22,8 @@ export default new Vuetify({
         tabHover: '#F2F5F5'
       },
       dark: {
-        primary: '#00838F',
+        primary: '#DE1F64',
+        secondary: '#00838F',
         anchor: '#00838F',
         primaryGrey: '#414243',
         secondaryGrey: '#717273',

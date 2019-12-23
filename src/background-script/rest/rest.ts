@@ -11,8 +11,8 @@ export const get = <T>({ endpoint }: { endpoint: string }) => {
   return _fetch<T>({ endpoint });
 }
 
-export const post = <T>({ endpoint, body }: { endpoint: string, body?: any }) => {
-  return _fetch<T>({ endpoint, method: 'POST', body })
+export const post = <T>({ endpoint, withAuth = true, body }: { endpoint: string, withAuth?: boolean, body?: any }) => {
+  return _fetch<T>({ endpoint, method: 'POST', withAuth, body });
 }
 
 const _fetch = async <T>({ endpoint, method = 'GET', withAuth = true, body }: RestRequest): Promise<RestResponse<T>> => {

@@ -18,7 +18,7 @@ export const getAccessToken = async (code: string) => {
     client_secret: clientSecret,
     code: code
   });
-  const response = await post<AccessTokenResponse>({ endpoint: `${loginUrl}/access_token?${params}` });
+  const response = await post<AccessTokenResponse>({ endpoint: `${loginUrl}/access_token?${params}`, withAuth: false });
   const tokenResponse = response.json;
   return tokenResponse?.access_token;
 };

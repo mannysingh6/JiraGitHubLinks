@@ -1,7 +1,9 @@
 import { listenForRuntimeMessages, MessageHandlersType, Operation } from "@/shared/extension-message";
+import { pullRequestsController } from '../controllers/pull-requests-controller';
 
-const handleGetPullRequests = ({ url }: { url: string }, sender: xbrowser.runtime.MessageSender) => {
-  console.log('GET PULL REQUESTS', url);
+const handleGetPullRequests = async ({ issue }: { issue: string }, sender: xbrowser.runtime.MessageSender) => {
+  console.log('GET PULL REQUESTS', issue);
+  return pullRequestsController.getPullRequestsForIssue(issue);
 };
 
 class InboundMessages {

@@ -20,5 +20,6 @@ declare global {
   interface Window {
     getPopupApi: PopupApi;
     debugMessaging: boolean;
+    xdContext: any;
   }
 }

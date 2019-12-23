@@ -8,6 +8,6 @@ export const getRepos = () => {
   return get<Repo[]>({ endpoint: `${baseApiUrl}/user/repos` });
 };
 
-export const getPullRequests = (owner: string, repo: string) => {
-  return get<PullRequest[]>({ endpoint: `${baseApiUrl}/user/repos/${owner}/${repo}/pulls` });
+export const getPullRequests = (ownerId: number, repoId: number) => {
+  return get<PullRequest[]>({ endpoint: `${baseApiUrl}/user/repos/${ownerId}/${repoId}/pulls` });
 };

@@ -60,7 +60,9 @@ export default class DOMObserver {
             return false;
           }
 
-          return true;
+          return changedNodes.some(node => {
+            return (node instanceof HTMLElement && node.tagName !== 'SCRIPT');
+          });
         }
         return false;
       });
