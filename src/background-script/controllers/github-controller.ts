@@ -5,6 +5,7 @@ import { getRepos, searchIssues } from '../rest/github';
 
 class GitHubController {
 
+
   public async searchForPullRequest(issue: string): Promise<RestResponse<PullRequest[]>> {
     let { json: searchResponse, unauthorized, ok } = await searchIssues(`${encodeURIComponent(issue)}+type:pr+org:lenovo-software`);
     return {
