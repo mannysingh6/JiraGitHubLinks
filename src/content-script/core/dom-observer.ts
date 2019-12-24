@@ -30,7 +30,7 @@ export default class DOMObserver {
     this.callback = callback;
     this.mutationObserver = this.observeDOM();
     this.observingDOM = true;
-    this.callbackThrottle = throttle(this.callback, 1000);
+    this.callbackThrottle = throttle(this.callback, 1500);
   }
 
   /**
@@ -61,7 +61,7 @@ export default class DOMObserver {
           }
 
           return changedNodes.some(node => {
-            return (node instanceof HTMLElement && node.tagName !== 'SCRIPT');
+            return (node instanceof HTMLElement && node.tagName !== 'SCRIPT' && node.id !== 'JGL-github-pull-requests');
           });
         }
         return false;

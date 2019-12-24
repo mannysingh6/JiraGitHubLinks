@@ -3,8 +3,10 @@ import { User } from './user';
 
 export interface PullRequest {
   id: number;
+  title: string;
   url: string;
   html_url: string;
+  repository_url?: string;
   number: number;
   state: string;
   locked: boolean;
@@ -16,9 +18,8 @@ export interface PullRequest {
   merged_at: string;
   assignee: User;
   assignees: User[];
-  head: {
+  head?: {
     user: User;
     repo: Repo;
   }
-  draft: boolean;
 }

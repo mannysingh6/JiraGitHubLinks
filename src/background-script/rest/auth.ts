@@ -30,7 +30,7 @@ export const doGithubLogin = async () => {
       interactive: true
     });
     const urlParams = new URLSearchParams(new URL(redirectUrl).search);
-    const code = urlParams.get("code");
+    const code = urlParams.get('code');
     if (code) {
       const token = await getAccessToken(code);
       if (token) {
@@ -38,10 +38,10 @@ export const doGithubLogin = async () => {
         return true;
       }
     } else {
-      new Error("No oauth code found");
+      new Error('No oauth code found');
     }
   } catch (err) {
-    console.error("Failed to login", err);
+    console.error('Failed to login', err);
   }
   return false;
 };

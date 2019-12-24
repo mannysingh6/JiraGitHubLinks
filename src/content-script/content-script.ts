@@ -1,6 +1,7 @@
 import { Operation, sendRuntimeMessage } from '@/shared/extension-message';
 import { PullRequest } from '@/shared/models/pull-request';
 import { RestResponse } from '@/shared/models/rest-response';
+import { injectPullRequests } from './core/dom-injector';
 import DOMObserver from './core/dom-observer';
 import { detectIssue } from './core/issue-detection';
 import { inboundMessages } from './messages/background-messages';
@@ -40,6 +41,9 @@ class ContentScript {
         issue: issueNumber
       }
     });
+    if (response.json) {
+      injectPullRequests(response.json);
+    }
     console.log('response', response);
   }
 }
