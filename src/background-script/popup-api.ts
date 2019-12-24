@@ -1,10 +1,12 @@
 import { LocalStorageManager } from '@/shared/local-storage-manager';
-import { doGithubLogin } from './rest/auth';
+import { gitHubController } from './controllers/github-controller';
 
 export class PopupApi {
+
   public login() {
-    return doGithubLogin();
+    return gitHubController.login();
   }
+
   public async logout() {
     await LocalStorageManager.clearAuthData();
     return true;

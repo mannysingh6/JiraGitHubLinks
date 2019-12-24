@@ -1,8 +1,13 @@
 import { PullRequest } from '@/shared/models/pull-request';
 import { Repo } from '@/shared/models/repo';
+import { User } from '@/shared/models/user';
 import { get } from './rest';
 
 const baseApiUrl = 'https://api.github.com';
+
+export const getUser = () => {
+  return get<User>({ endpoint: `${baseApiUrl}/user`, useCache: true });
+};
 
 export const getRepos = (page: number, per_page: number) => {
   return get<Repo[]>({ endpoint: `${baseApiUrl}/user/repos?page=${page}&per_page=${per_page}`, useCache: true });

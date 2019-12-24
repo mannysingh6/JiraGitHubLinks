@@ -1,5 +1,8 @@
+import { User } from './models/user';
+
 export enum LocalStorageKey {
-  AccessToken = 'accessToken'
+  AccessToken = 'accessToken',
+  User = 'user'
 }
 
 export class LocalStorageManager {
@@ -19,11 +22,26 @@ export class LocalStorageManager {
   }
 
   /**
+   * Gets the user from storage.
+   */
+  public static getUser(): Promise<User | undefined> {
+    return this.get<User | undefined>(LocalStorageKey.User, undefined);
+  }
+
+  /**
+   * Sets the user in storage.
+   */
+  public static setUser(user: User): Promise<void> {
+    return this.set(LocalStorageKey.User, user);
+  }
+
+  /**
    * Clears the authentication information, such as oauth token from extension storage
    */
   public static clearAuthData(): Promise<void> {
     const keysToRemove = [
-      LocalStorageKey.AccessToken
+      LocalStorageKey.AccessToken,
+      LocalStorageKey.User
     ];
 
     return xbrowser.storage.local.remove(keysToRemove);
@@ -34,7 +52,8 @@ export class LocalStorageManager {
    */
   public static resetLocalStorage() {
     return xbrowser.storage.local.remove([
-      LocalStorageKey.AccessToken
+      LocalStorageKey.AccessToken,
+      LocalStorageKey.User
     ]);
   }
 

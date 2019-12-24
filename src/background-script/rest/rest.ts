@@ -1,7 +1,7 @@
 import { LocalStorageManager } from '@/shared/local-storage-manager';
 import { PageLinks, RestResponse } from '@/shared/models/rest-response';
 import parseLinkHeader from 'parse-link-header';
-import { requestCache } from './cache';
+import { requestCache } from './request-cache';
 
 interface RestRequest {
   endpoint: string,
@@ -44,7 +44,6 @@ const _fetch = async <T>({ endpoint, method = 'GET', withAuth = true, useCache =
   if (useCache) {
     const cachedResponse = requestCache.get(request);
     if (cachedResponse) {
-      console.log('Returning cached response..');
       return cachedResponse;
     }
   }

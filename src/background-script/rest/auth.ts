@@ -1,4 +1,3 @@
-import { LocalStorageManager } from '@/shared/local-storage-manager';
 import { post } from './rest';
 
 const clientId = 'eb8d09253d4e7fc70b1e';
@@ -33,10 +32,7 @@ export const doGithubLogin = async () => {
     const code = urlParams.get('code');
     if (code) {
       const token = await getAccessToken(code);
-      if (token) {
-        await LocalStorageManager.setToken(token);
-        return true;
-      }
+      return token;
     } else {
       new Error('No oauth code found');
     }
