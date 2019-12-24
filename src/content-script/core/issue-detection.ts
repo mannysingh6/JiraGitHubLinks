@@ -6,6 +6,23 @@ export const detectIssue = async () => {
       return issue;
     }
   }
+
+  const keyValElement = document.getElementById('key-val');
+  if (keyValElement) {
+    const issue = keyValElement.innerText;
+    if (issue) {
+      return issue;
+    }
+  }
+
+  const issueKeyValElement = document.getElementById('issuekey-val');
+  if (issueKeyValElement) {
+    const issue = (issueKeyValElement.firstChild as HTMLElement | undefined)?.innerText;
+    if (issue) {
+      return issue;
+    }
+  }
+
   return false;
 }
 
