@@ -1,5 +1,4 @@
 import { PullRequest } from '@/shared/models/pull-request';
-import { Repo } from '@/shared/models/repo';
 import { User } from '@/shared/models/user';
 import { get, post } from './rest';
 
@@ -8,14 +7,6 @@ const graphqlUrl = 'https://api.github.com/graphql';
 
 export const getUser = () => {
   return get<User>({ endpoint: `${baseApiUrl}/user`, useCache: true });
-};
-
-export const getRepos = (page: number, per_page: number) => {
-  return get<Repo[]>({ endpoint: `${baseApiUrl}/user/repos?page=${page}&per_page=${per_page}`, useCache: true });
-};
-
-export const getPullRequests = (owner: string, repo: string) => {
-  return get<PullRequest[]>({ endpoint: `${baseApiUrl}/repos/${owner}/${repo}/pulls`, useCache: true });
 };
 
 export interface SearchResponse<T> {

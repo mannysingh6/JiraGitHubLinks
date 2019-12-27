@@ -19,7 +19,6 @@ export const post = <T>({ endpoint, withAuth = true, body, useCache = false, gra
   return _fetch<T>({ endpoint, method: 'POST', withAuth, body, useCache, graphql });
 }
 
-
 const _fetch = async <T>({ endpoint, method = 'GET', withAuth = true, useCache = false, body, graphql }: RestRequest): Promise<RestResponse<T>> => {
   const headers: HeadersInit = {
     Accept: 'application/json'
@@ -29,7 +28,6 @@ const _fetch = async <T>({ endpoint, method = 'GET', withAuth = true, useCache =
     if (token) {
       headers['Authorization'] = `token ${token}`;
     } else {
-      await LocalStorageManager.clearAuthData();
       return {
         ok: false,
         unauthorized: true
@@ -81,7 +79,6 @@ const _fetch = async <T>({ endpoint, method = 'GET', withAuth = true, useCache =
       return result;
     } else {
       if (response.status === 401) {
-        await LocalStorageManager.clearAuthData();
         return {
           ok: false,
           unauthorized: true

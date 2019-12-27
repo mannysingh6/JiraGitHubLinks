@@ -1,4 +1,3 @@
-
 export interface PullRequest {
   id: number;
   title: string;
