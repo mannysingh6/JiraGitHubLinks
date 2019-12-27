@@ -158,7 +158,7 @@ module.exports = env => {
 
     plugins: [
       new webpack.DefinePlugin({
-        DEBUG_MESSAGING_ENABLED: (env.debug === true)
+        DEBUG_MESSAGING_ENABLED: JSON.stringify(!!env.debug)
       }),
       new VueLoaderPlugin(),
       new VuetifyLoaderPlugin(),

@@ -49,14 +49,14 @@ export const listenForRuntimeMessages = (messageHandlers: Map<Operation, Message
       const fn = messageHandlers.get(message.operation);
       if (fn) {
         if (window.debugMessaging) {
-          console.debug(`Incoming message: ${Operation[message.operation]}`, message);
+          console.log(`Incoming message: ${Operation[message.operation]}`, message);
         }
         try {
           return (async () => {
             const data = deserializeData<any>(message.data);
             const response = await fn(data, sender);
             if (window.debugMessaging) {
-              console.debug(`Sending response: ${Operation[message.operation]}`, response);
+              console.log(`Sending response: ${Operation[message.operation]}`, response);
             }
             return { response: response } as SendMessageResponse;
           })();
@@ -65,7 +65,7 @@ export const listenForRuntimeMessages = (messageHandlers: Map<Operation, Message
           // The polyfill for xbrowser.runtime.onMessage treats thrown errors/Promise.reject the same as a response, so
           // wrap it and send back to be thrown on the receiving side.
           return (async () => {
-            console.debug(`Sending response as error: ${Operation[message.operation]}`, err);
+            console.log(`Sending response as error: ${Operation[message.operation]}`, err);
             return { error: err } as SendMessageResponse;
           })();
         }
@@ -80,7 +80,7 @@ export const listenForRuntimeMessages = (messageHandlers: Map<Operation, Message
 
 export const sendRuntimeMessage = async <T>(message: ExtensionMessage<any>) => {
   if (window.debugMessaging) {
-    console.debug(`Sending message: ${Operation[message.operation]}`, message);
+    console.log(`Sending message: ${Operation[message.operation]}`, message);
   }
   const response = await xbrowser.runtime.sendMessage(message);
   return getDeserializedResponseOrThrow<T>(response);
@@ -90,7 +90,7 @@ export const sendTabMessage = async <T>(tabId: number, message: ExtensionMessage
   frameId?: number;
 }) => {
   if (window.debugMessaging) {
-    console.debug(`Sending message to tab ${tabId}: ${Operation[message.operation]}`, message);
+    console.log(`Sending message to tab ${tabId}: ${Operation[message.operation]}`, message);
   }
 
   try {
