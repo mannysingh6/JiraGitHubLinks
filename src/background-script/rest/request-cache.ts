@@ -1,7 +1,7 @@
 import { RestResponse } from '@/shared/models/rest-response';
 
 export interface RequestCacheEntry {
-  url: string;
+  key: string;
   response: RestResponse<any>;
   lastRead: number;
 }
@@ -12,9 +12,8 @@ export class RequestCache {
 
   public cache = new Map<string, RequestCacheEntry>();
 
-  public get(req: Request): RestResponse<any> | undefined {
-    const url = req.url;
-    const cached = this.cache.get(url);
+  public get(key: string): RestResponse<any> | undefined {
+    const cached = this.cache.get(key);
 
     if (!cached) {
       return undefined;
@@ -22,21 +21,20 @@ export class RequestCache {
 
     const isExpired = cached.lastRead < (Date.now() - maxAge);
     if (isExpired) {
-      this.cache.delete(url);
+      this.cache.delete(key);
     }
     return isExpired ? undefined : cached.response;
   }
 
-  public set(req: Request, response: RestResponse<any>) {
-    const url = req.url;
-    const entry = { url, response, lastRead: Date.now() };
-    this.cache.set(url, entry);
+  public set(key: string, response: RestResponse<any>) {
+    const entry = { key, response, lastRead: Date.now() };
+    this.cache.set(key, entry);
 
     // remove expired cache entries
     const expired = Date.now() - maxAge;
     this.cache.forEach(entry => {
       if (entry.lastRead < expired) {
-        this.cache.delete(entry.url);
+        this.cache.delete(entry.key);
       }
     });
   }

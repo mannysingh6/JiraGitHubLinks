@@ -13,6 +13,7 @@ class GitHubController {
       const user = await getUser();
       if (user.json) {
         await LocalStorageManager.setUser(user.json);
+        return true;
       }
     }
 
@@ -28,10 +29,11 @@ class GitHubController {
       }
     }
     const company = user.company?.replace('@', '');
-    let { json: searchResponse, unauthorized, ok } = await searchIssues(`${encodeURIComponent(issue)}+type:pr+org:${company}+user:${user.login}`);
+    const q = `${issue} in:title type:pr org:${company} user:${user.login}`;
+    let { json: searchResponse, unauthorized, ok } = await searchIssues(q);
     return {
       ok,
-      json: searchResponse?.items,
+      json: searchResponse?.data.search.nodes,
       unauthorized
     };
   }

@@ -1,7 +1,8 @@
 import { Operation, sendRuntimeMessage } from '@/shared/extension-message';
 import { PullRequest } from '@/shared/models/pull-request';
 import { RestResponse } from '@/shared/models/rest-response';
-import { injectPullRequests } from './core/dom-injector';
+import { throttle } from '@/shared/util/throttle';
+import { injectFailureMessage, injectLoginBox, injectPullRequests } from './core/dom-injector';
 import DOMObserver from './core/dom-observer';
 import { detectIssue } from './core/issue-detection';
 import { inboundMessages } from './messages/background-messages';
@@ -9,11 +10,16 @@ import { inboundMessages } from './messages/background-messages';
 class ContentScript {
 
   private domObserver = new DOMObserver();
+  private findIssueThrottle!: Function;
+
+  constructor() {
+    this.findIssueThrottle = throttle(this.findIssue, 2000);
+  }
 
   public init = async () => {
     inboundMessages.startListening();
+    this.findIssueThrottle();
     this.domObserver.startObserver(document.documentElement, this.domObserverCallback);
-    this.findIssue();
   }
 
   public destruct = () => {
@@ -26,7 +32,7 @@ class ContentScript {
   * is added or removed. It will also see if the URL has changed for SPAs.
   */
   private domObserverCallback = () => {
-    this.findIssue();
+    this.findIssueThrottle();
   }
 
   private findIssue = async () => {
@@ -41,10 +47,17 @@ class ContentScript {
         issue: issueNumber
       }
     });
+    console.log('response', response);
     if (response.json) {
       injectPullRequests(response.json);
     }
-    console.log('response', response);
+    if (response.unauthorized) {
+      injectLoginBox(() => {
+        sendRuntimeMessage({ operation: Operation.LaunchGithubLogin });
+      });
+    } else if (!response.ok) {
+      injectFailureMessage();
+    }
   }
 }
 

@@ -34,8 +34,12 @@
     "contextMenus",
     "identity",
     "webNavigation",
+    "tabs",
     "https://api.github.com/*",
-    "https://github.com/*"
+    "https://github.com/*",
+    "*://jira.tc.lenovo.com/*",
+    "*://jira.stone-ware.com/*",
+    "*://*.atlassian.net/*"
   ],
   "incognito": "split",
   "web_accessible_resources": []

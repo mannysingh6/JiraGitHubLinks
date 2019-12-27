@@ -3,6 +3,7 @@
  */
 export enum Operation {
   Unknown,
+  LaunchGithubLogin,
   ResetContentScript,
   GetPullRequests,
 }

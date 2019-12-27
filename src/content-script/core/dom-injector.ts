@@ -1,20 +1,64 @@
 import { PullRequest } from '@/shared/models/pull-request';
 
 const panelId = 'JGL-github-pull-requests';
+const arrowDownSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"></path></g></svg>';
+const githubIconSvg = '<svg style="width:20px;height:20px" viewBox="0 0 24 24"><path fill="#000000" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" /></svg>';
+
+let loginBtnListener: EventListener;
 
 export const injectPullRequests = (pullRequests: PullRequest[]) => {
+  const listItems = pullRequests.reduce((pv, cv) => {
+    return `${pv}<li><a href="${cv.url}" target="_blank">#${cv.number}: ${cv.title}</a></li>`
+  }, '') || 'No pull requests found.';
+  const listHtml = `<ul style="margin:0; padding: 0">${listItems}</ul>`;
+  return injectHtmlToPage(listHtml);
+}
 
+export const injectLoginBox = (onLoginBtnClick: () => void) => {
+
+  const listenerId = 'JGL-sign-with-github-listener';
+  const btnId = 'JGL-sign-with-github-btn';
+  const innerHtml = `<div style="margin-bottom:5px">Please sign in to view pull requests</div>
+  <div>
+    <button id="${btnId}" class="aui-button" resolved="" style="display:flex" onclick="event.preventDefault(); document.dispatchEvent(new CustomEvent('${listenerId}'));">
+      <span>Sign In With GitHub</span>
+      <span style="padding-left:3px">${githubIconSvg}<span>
+    </button>
+  </div>`;
+
+  if (loginBtnListener) {
+    document.removeEventListener(listenerId, loginBtnListener);
+  }
+  loginBtnListener = (event: Event) => {
+    onLoginBtnClick();
+  }
+  document.addEventListener(listenerId, loginBtnListener);
+
+  return injectHtmlToPage(innerHtml);
+}
+
+export const injectFailureMessage = () => {
+  const innerHtml = `<div style="margin-bottom:5px">Something went wrong retrieving pull requests for this ticket.</div>
+  <div>
+    <button class="aui-button" resolved="" style="display:flex" onclick="event.preventDefault(); document.location.reload(true)">
+      <span>Refresh Page</span>
+    </button>
+  </div>`;
+  return injectHtmlToPage(innerHtml);
+}
+
+const injectHtmlToPage = (innerHtml: string) => {
   const existingPanel = document.getElementById(panelId);
   if (existingPanel) {
     existingPanel.parentNode?.removeChild(existingPanel);
   }
 
-  const successOne = tryInjectionOne(pullRequests);
+  const successOne = tryInjectionOne(innerHtml);
   if (successOne) {
     return true;
   }
 
-  const successTwo = tryInjectionTwo(pullRequests);
+  const successTwo = tryInjectionTwo(innerHtml);
   if (successTwo) {
     return true;
   }
@@ -22,7 +66,7 @@ export const injectPullRequests = (pullRequests: PullRequest[]) => {
   return false;
 }
 
-const tryInjectionOne = (pullRequests: PullRequest[]) => {
+const tryInjectionOne = (innerHtml: string) => {
   const container = document.getElementById('viewissuesidebar');
 
   if (!container) {
@@ -36,14 +80,7 @@ const tryInjectionOne = (pullRequests: PullRequest[]) => {
   const headerDivElement = document.createElement('div');
   headerDivElement.className = 'mod-header';
   headerDivElement.innerHTML = `<ul class="ops"></ul>
-  <a href="#" class="aui-button toggle-title" resolved=""> \
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"> \
-      <g fill="none" fill-rule="evenodd" data-darkreader-inline-fill="" style="--darkreader-inline-fill:none;"> \
-      <path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#b3c0c9;"> \
-      </path> \
-      </g> \
-    </svg> \
-  </a> \
+  <a href="#" class="aui-button toggle-title" resolved="">${arrowDownSvg}</a>
   <h4 class="toggle-title">Pull Requests</h4>`;
 
   panelElement.appendChild(headerDivElement);
@@ -53,7 +90,7 @@ const tryInjectionOne = (pullRequests: PullRequest[]) => {
 
   const itemDetails = document.createElement('div');
   itemDetails.className = 'item-details';
-  itemDetails.innerHTML = buildPullRequestsList(pullRequests);
+  itemDetails.innerHTML = innerHtml;
   contentDiv.appendChild(itemDetails);
 
   panelElement.appendChild(contentDiv);
@@ -62,7 +99,7 @@ const tryInjectionOne = (pullRequests: PullRequest[]) => {
   return true;
 }
 
-const tryInjectionTwo = (pullRequests: PullRequest[]) => {
+const tryInjectionTwo = (innerHtml: string) => {
   const container = document.getElementById('ghx-detail-view');
   if (!container) {
     return false;
@@ -85,13 +122,7 @@ const tryInjectionTwo = (pullRequests: PullRequest[]) => {
   const headerDivElement = document.createElement('div');
   headerDivElement.className = 'mod-header';
   headerDivElement.innerHTML = `<ul class="ops"></ul>
-  <a href="#" class="aui-button toggle-title" resolved="">
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14">
-      <g fill="none" fill-rule="evenodd">
-      <path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"></path>
-      </g>
-    </svg>
-  </a>
+  <a href="#" class="aui-button toggle-title" resolved="">${arrowDownSvg}</a>
   <h4 class="toggle-title">Pull Requests</h4>`;
 
   panelElement.appendChild(headerDivElement);
@@ -99,17 +130,10 @@ const tryInjectionTwo = (pullRequests: PullRequest[]) => {
   const contentDiv = document.createElement('div');
   contentDiv.className = 'mod-content';
   contentDiv.style.paddingLeft = '20px';
-  contentDiv.innerHTML = buildPullRequestsList(pullRequests);
+  contentDiv.innerHTML = innerHtml;
 
   panelElement.appendChild(contentDiv);
   subTasksContainer.appendChild(panelElement);
 
   return true;
-}
-
-const buildPullRequestsList = (pullRequests: PullRequest[]) => {
-  const items = pullRequests.reduce((pv, cv) => {
-    return `${pv}<li><a href="${cv.html_url}" target="_blank">#${cv.number}: ${cv.title}</a></li>`
-  }, '');
-  return `<ul style="margin:0; padding: 0">${items}</ul>`;
 }
