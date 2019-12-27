@@ -2,7 +2,7 @@ import { listenForRuntimeMessages, MessageHandlersType, Operation } from "@/shar
 import { contentScript } from '../content-script';
 import { destruct } from '../destructor';
 
-const handleResetContentScript = (data: any, sender: xbrowser.runtime.MessageSender) => {
+const handleResetGithubContentScript = (data: any, sender: xbrowser.runtime.MessageSender) => {
   destruct();
   contentScript.init();
 };
@@ -16,7 +16,7 @@ class InboundMessages {
      * Map of message handlers for messages sent to the content script.
      */
     this.listener = listenForRuntimeMessages(new Map<Operation, MessageHandlersType>([
-      [Operation.ResetContentScript, handleResetContentScript]
+      [Operation.ResetGithubContentScript, handleResetGithubContentScript]
     ]));
   }
 

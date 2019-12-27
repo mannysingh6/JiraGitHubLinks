@@ -24,7 +24,19 @@
       "js": [
         "scripts/shared/polyfills.js",
         "lib/xbrowser-polyfill.js",
-        "scripts/content-script.js"
+        "scripts/jira-content-script.js"
+      ],
+      "all_frames": false
+    },
+    {
+      "run_at": "document_end",
+      "matches": [
+        "https://github.com/*/*/pull/*"
+      ],
+      "js": [
+        "scripts/shared/polyfills.js",
+        "lib/xbrowser-polyfill.js",
+        "scripts/github-content-script.js"
       ],
       "all_frames": false
     }

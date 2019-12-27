@@ -1,22 +1,36 @@
 <template>
-  <div class="d-flex flex-grow-1 align-center justify-center pa-3">
-    <LogoutBtn :loading="loading" @click="onLogoutClick" />
+  <div class="align-center mt-auto">
+    <v-list class dense>
+      <v-list-item-group>
+        <v-list-item dense :key="0" @click="onSettingsClick()">
+          <v-list-item-content>Settings</v-list-item-content>
+          <v-list-item-icon>
+            <v-icon>mdi-settings</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item dense :key="1" @click="onLogoutClick()">
+          <v-list-item-content>Logout</v-list-item-content>
+          <v-list-item-icon>
+            <v-icon>mdi-logout-variant</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import LogoutBtn from "../components/LogoutBtn.vue";
 import { getPopupApi } from "../popup-api-util";
 
 @Component({
-  components: {
-    LogoutBtn
-  }
+  components: {}
 })
 export default class Home extends Vue {
   public loading = false;
+
+  public onSettingsClick() {}
 
   public async onLogoutClick() {
     this.loading = true;

@@ -11,7 +11,7 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: '#DE1F64',
+        primary: '#CD2B2B',
         secondary: '#00838F',
         anchor: '#00838F',
         primaryGrey: '#414243',
@@ -22,7 +22,7 @@ export default new Vuetify({
         tabHover: '#F2F5F5'
       },
       dark: {
-        primary: '#DE1F64',
+        primary: '#CD2B2B',
         secondary: '#00838F',
         anchor: '#00838F',
         primaryGrey: '#414243',

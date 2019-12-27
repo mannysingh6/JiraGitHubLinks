@@ -1,8 +1,12 @@
 <template>
   <v-app>
     <v-content>
-      <div class="d-flex flex-column flex-grow-1">
-        <div class="subtitle-1 font-weight-light header px-3 py-1">Lenovo Internal Extension</div>
+      <div class="main d-flex flex-column flex-grow-1">
+        <div
+          class="header subtitle-1 font-weight-thin d-flex flex-row px-3 py-1 pt-3 align-center justify-center"
+        >
+          <img class="logo mr-2" src="./assets/logo.svg" />
+        </div>
         <router-view />
       </div>
     </v-content>
@@ -14,15 +18,19 @@
   font-family: ProximaNova-Regular, "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 200px;
-  width: 240px;
+  height: 170px;
+  width: 250px;
   color: var(--v-primaryGrey-base);
   font-size: 14px;
-  background: linear-gradient(180deg, #ffffff 0.06%, #e1e2e3 100%);
+  background: white;
   text-align: center;
 }
+.main {
+  height: 100vh;
+}
 .header {
-  background-color: var(--v-primaryGrey-base);
-  color: white;
+}
+.logo {
+  height: 34px;
 }
 </style>

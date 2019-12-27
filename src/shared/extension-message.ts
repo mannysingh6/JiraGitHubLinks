@@ -4,7 +4,8 @@
 export enum Operation {
   Unknown,
   LaunchGithubLogin,
-  ResetContentScript,
+  ResetGithubContentScript,
+  ResetJiraContentScript,
   GetPullRequests,
 }
 

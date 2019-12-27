@@ -42,8 +42,8 @@ class GitHubController {
         unauthorized: true
       }
     }
-    const company = user.company?.replace('@', '');
-    const q = `${issue} in:title type:pr org:${company} user:${user.login}`;
+    const company = user.company ? `org:${user.company?.replace('@', '')}` : '';
+    const q = `${issue} in:title type:pr user:${user.login} ${company}`;
     let { json: searchResponse, unauthorized, ok } = await searchIssues(q);
 
     if (unauthorized) {

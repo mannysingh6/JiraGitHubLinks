@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="primary" depressed large :loading="loading" :disabled="loading" @click="click">
+  <v-btn color="primary" text large :loading="loading" :disabled="loading" @click="click">
     Sign In With Github
     <v-icon right>mdi-github-circle</v-icon>
   </v-btn>

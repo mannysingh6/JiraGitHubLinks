@@ -30,7 +30,8 @@ module.exports = env => {
       "scripts/shared/polyfills": "./src/shared/polyfills.ts",
       "lib/xbrowser-polyfill": webExtensionPolyfill,
       "scripts/background": "./src/background-script/background-entry.ts",
-      "scripts/content-script": "./src/content-script/content-script-entry.ts",
+      "scripts/jira-content-script": "./src/jira-content-script/content-script-entry.ts",
+      "scripts/github-content-script": "./src/github-content-script/content-script-entry.ts",
       "scripts/popup": "./src/popup/popup.ts"
     },
 
