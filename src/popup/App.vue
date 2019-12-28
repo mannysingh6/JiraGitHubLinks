@@ -5,7 +5,7 @@
         <div
           class="header subtitle-1 font-weight-thin d-flex flex-row px-3 py-1 pt-3 align-center justify-center"
         >
-          <img class="logo mr-2" src="./assets/logo.svg" />
+          <img class="logo mr-2" src="../assets/logo.svg" />
         </div>
         <router-view />
       </div>

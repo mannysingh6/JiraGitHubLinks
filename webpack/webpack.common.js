@@ -23,7 +23,7 @@ module.exports = env => {
 
   const webExtensionPolyfill = `./ext/platform/web-extension-polyfills/${env.platform}-browser-polyfill.ts`;
   const commonChunks = ["scripts/shared/polyfills", "lib/xbrowser-polyfill"];
-  const templateNames = ["background", "popup"];
+  const templateNames = ["background", "popup", "settings"];
 
   return {
     entry: {
@@ -32,7 +32,8 @@ module.exports = env => {
       "scripts/background": "./src/background-script/background-entry.ts",
       "scripts/jira-content-script": "./src/jira-content-script/content-script-entry.ts",
       "scripts/github-content-script": "./src/github-content-script/content-script-entry.ts",
-      "scripts/popup": "./src/popup/popup.ts"
+      "scripts/popup": "./src/popup/popup.ts",
+      "scripts/settings": "./src/settings/settings.ts"
     },
 
     output: {

@@ -61,7 +61,7 @@ module.exports = env => {
       entries: { // The entries used for the content/background scripts
         contentScript: ['scripts/jira-content-script', 'scripts/github-content-script'],
         background: backgroundChunkName,
-        popup: 'scripts/popup'
+        extensionPage: ['scripts/popup', 'scripts/settings']
       }
     }));
   }

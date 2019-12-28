@@ -30,7 +30,16 @@ import { getPopupApi } from "../popup-api-util";
 export default class Home extends Vue {
   public loading = false;
 
-  public onSettingsClick() {}
+  public async onSettingsClick() {
+    const response: xbrowser.tabs.Tab = await xbrowser.tabs.create({
+      url: xbrowser.runtime.getURL("settings.html"),
+      active: true
+    });
+
+    if (response) {
+      window.close();
+    }
+  }
 
   public async onLogoutClick() {
     this.loading = true;

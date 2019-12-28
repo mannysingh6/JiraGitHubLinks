@@ -1,17 +1,20 @@
 {
-  "name": "Jira GitHub Links",
+  "name": "Lenovo Internal Extension",
   "version": "1.0.0",
   "manifest_version": 2,
   "minimum_chrome_version": "53",
-  "description": "Jira GitHub Links",
+  "description": "Lenovo Internal Extension",
   "icons": {},
   "browser_action": {
     "default_icon": {},
-    "default_title": "Jira GitHub Links"
+    "default_title": "Lenovo Internal Extension"
   },
   "background": {
     "page": "background.html",
     "persistent": true
+  },
+  "options_ui": {
+    "page": "settings.html"
   },
   "content_scripts": [
     {

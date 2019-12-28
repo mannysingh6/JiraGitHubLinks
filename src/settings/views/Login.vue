@@ -1,6 +1,9 @@
 <template>
-  <div class="d-flex flex-grow-1 align-center justify-center pa-3">
-    <LoginBtn @login-success="onLoginSuccess" />
+  <div class="d-flex flex-column flex-grow-1 align-center justify-center ma-5">
+    <div class="mb-10">
+      <img class="logo" src="@/assets/logo.svg" height="50" />
+    </div>
+    <LoginBtn @login-success="onLoginSuccess()" />
   </div>
 </template>
 
@@ -15,9 +18,8 @@ import LoginBtn from "@/shared/components/LoginBtn.vue";
   }
 })
 export default class Login extends Vue {
-  public onLoginSuccess() {
+  public async onLoginSuccess() {
     this.$router.replace("/");
-    console.log("test");
   }
 }
 </script>
