@@ -5,7 +5,7 @@
         <v-list-item-content>
           <v-list-item-title class="title">
             <div>
-              <img class="logo" src="@/assets/logo.svg" />
+              <img class="logo" src="@/shared/assets/logo.svg" />
             </div>
           </v-list-item-title>
         </v-list-item-content>

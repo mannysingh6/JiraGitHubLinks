@@ -15,6 +15,7 @@ declare global {
     export import i18n = browser.i18n;
     export import extension = browser.extension;
     export import identity = browser.identity;
+    export import commands = browser.commands;
   }
 
   interface Window {

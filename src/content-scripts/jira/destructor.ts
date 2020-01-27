@@ -1,4 +1,4 @@
-import { contentScript } from './content-script';
+import { contentScript } from './jira-script';
 
 export const destruct = () => {
 
@@ -9,7 +9,7 @@ export const destruct = () => {
     contentScript.destruct();
   }
 
-  const destructionEvent = 'destruct_github_content_script_' + xbrowser.runtime.id;
+  const destructionEvent = 'destruct_jira_content_script_' + xbrowser.runtime.id;
   // Unload previous content script if needed
   document.dispatchEvent(new CustomEvent(destructionEvent));
   document.addEventListener(destructionEvent, destructor);

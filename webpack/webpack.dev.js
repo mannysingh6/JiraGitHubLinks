@@ -59,9 +59,9 @@ module.exports = env => {
       port: 9090, // Which port use to create the server
       reloadPage: true, // Force the reload of the page also
       entries: { // The entries used for the content/background scripts
-        contentScript: ['scripts/jira-content-script', 'scripts/github-content-script'],
+        contentScript: ['scripts/jira-content-script', 'scripts/github-content-script', 'scripts/spotlight-content-script'],
         background: backgroundChunkName,
-        extensionPage: ['scripts/popup', 'scripts/settings']
+        extensionPage: ['scripts/popup', 'scripts/settings', 'scripts/spotlight']
       }
     }));
   }

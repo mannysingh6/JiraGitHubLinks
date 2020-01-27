@@ -1,6 +1,8 @@
-import { contentScript } from './content-script';
+import { contentScript } from './spotlight-script';
 
 export const destruct = () => {
+
+  console.log('destruct called');
 
   function destructor() {
     // Destruction is needed only once
@@ -9,7 +11,7 @@ export const destruct = () => {
     contentScript.destruct();
   }
 
-  const destructionEvent = 'destruct_jira_content_script_' + xbrowser.runtime.id;
+  const destructionEvent = 'destruct_spotlight_content_script_' + xbrowser.runtime.id;
   // Unload previous content script if needed
   document.dispatchEvent(new CustomEvent(destructionEvent));
   document.addEventListener(destructionEvent, destructor);

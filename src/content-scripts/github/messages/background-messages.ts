@@ -1,8 +1,8 @@
 import { listenForRuntimeMessages, MessageHandlersType, Operation } from "@/shared/extension-message";
-import { contentScript } from '../content-script';
 import { destruct } from '../destructor';
+import { contentScript } from '../github-script';
 
-const handleResetJiraContentScript = (data: any, sender: xbrowser.runtime.MessageSender) => {
+const handleResetGithubContentScript = (data: any, sender: xbrowser.runtime.MessageSender) => {
   destruct();
   contentScript.init();
 };
@@ -16,7 +16,7 @@ class InboundMessages {
      * Map of message handlers for messages sent to the content script.
      */
     this.listener = listenForRuntimeMessages(new Map<Operation, MessageHandlersType>([
-      [Operation.ResetJiraContentScript, handleResetJiraContentScript]
+      [Operation.ResetGithubContentScript, handleResetGithubContentScript]
     ]));
   }
 

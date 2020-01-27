@@ -10,4 +10,20 @@ export const resetAllTabs = async () => {
     sendTabMessage(tab.id!, { operation: Operation.ResetJiraContentScript });
     sendTabMessage(tab.id!, { operation: Operation.ResetGithubContentScript });
   });
-}
+};
+
+export const getActiveTab = async (): Promise<xbrowser.tabs.Tab | null> => {
+  const tabs = await xbrowser.tabs.query({
+    currentWindow: true,
+    active: true,
+    windowType: 'normal'
+  });
+
+  const activeTab = tabs[0];
+
+  if (activeTab) {
+    return activeTab;
+  }
+
+  return null;
+};

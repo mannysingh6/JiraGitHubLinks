@@ -56,11 +56,16 @@ ManifestBuilderPlugin.prototype.apply = function (compiler) {
         return !entryPointNames.includes(chunk.name);
       });
 
-      // Create a list of files from chunks, exclude source maps
-      const fileNames = chunksToInclude.map(chunk => chunk.files.filter(file => file.includes('vendor/') && !file.endsWith('.map')));
+      const vendorFiles = chunksToInclude.map(chunk => chunk.files.filter(file => {
+        return file.includes('vendor/index') && !file.endsWith('.map')
+      }));
+      const commonFiles = chunksToInclude.map(chunk => chunk.files.filter(file => {
+        return file.includes('common/index') && !file.endsWith('.map')
+      }));
 
-      // Flatten the array
-      const flattenFileNames = [].concat.apply([], fileNames);
+      // Flatten the arrays
+      const flattenVendorFiles = [].concat.apply([], vendorFiles);
+      const flattenCommonFiles = [].concat.apply([], commonFiles);
 
       // Key of manifest in assets
       const manifestKey = 'manifest.json';
@@ -71,7 +76,15 @@ ManifestBuilderPlugin.prototype.apply = function (compiler) {
 
       // Build manifest file
       const json = JSON.parse(compilation.assets[manifestKey].source());
-      compilation.assets[manifestKey] = makeAsset(modifyManifest(json, flattenFileNames, platform, compiler.options.mode));
+      compilation.assets[manifestKey] = makeAsset(modifyManifest(json, flattenCommonFiles, platform, compiler.options.mode));
+
+      // console.log('compilation.hooks', compilation.hooks);
+
+      // compilation.hooks.define.tap((definitions) => {
+      //   definitions[0]['VENDOR_FILES'] = JSON.stringify(flattenVendorFiles);
+      //   definitions[0]['COMMON_FILES'] = JSON.stringify(flattenCommonFiles);
+      //   return definitions;
+      // });
 
       // tapAsync requires us to invoke 'callback'
       callback();

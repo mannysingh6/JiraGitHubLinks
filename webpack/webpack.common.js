@@ -22,16 +22,17 @@ module.exports = env => {
   const outputPath = path.join(root, "dist", env.platform);
 
   const webExtensionPolyfill = `./ext/platform/web-extension-polyfills/${env.platform}-browser-polyfill.ts`;
-  const commonChunks = ["scripts/shared/polyfills", "lib/xbrowser-polyfill"];
-  const templateNames = ["background", "popup", "settings"];
+  const commonChunks = ["lib/xbrowser-polyfill"];
+  const templateNames = ["background", "popup", "settings", "spotlight"];
 
   return {
     entry: {
-      "scripts/shared/polyfills": "./src/shared/polyfills.ts",
       "lib/xbrowser-polyfill": webExtensionPolyfill,
       "scripts/background": "./src/background-script/background-entry.ts",
-      "scripts/jira-content-script": "./src/jira-content-script/content-script-entry.ts",
-      "scripts/github-content-script": "./src/github-content-script/content-script-entry.ts",
+      "scripts/github-content-script": "./src/content-scripts/github/github-script-entry.ts",
+      "scripts/jira-content-script": "./src/content-scripts/jira/jira-script-entry.ts",
+      "scripts/spotlight-content-script": "./src/content-scripts/spotlight/spotlight-script-entry.ts",
+      "scripts/spotlight": "./src/spotlight/spotlight.ts",
       "scripts/popup": "./src/popup/popup.ts",
       "scripts/settings": "./src/settings/settings.ts"
     },
@@ -61,25 +62,28 @@ module.exports = env => {
           // vendor chunk
           vendor: {
             // name of the chunk
-            name: "vendor/vendor",
-            // async + async chunks
-            chunks: "all",
-            // import file path containing node_modules
-            test: /node_modules/,
+            name: "vendor/index",
+            chunks(chunk) {
+              return chunk.name !== 'scripts/spotlight-content-script';
+            },
+            // import file path containing node_modules (exclude webextension-polyfill)
+            test: /[\\/]node_modules[\\/]((?!(webextension-polyfill)).*)[\\/]/,
             // priority
             priority: 20,
             // max size (in bytes)
-            maxSize: 3000000
+            maxSize: 1000
           },
           // common chunk
           common: {
-            name: "vendor/common",
+            name: "common/index",
             minChunks: 2,
-            chunks: "all",
+            chunks(chunk) {
+              return chunk.name !== 'scripts/spotlight-content-script';
+            },
             priority: 10,
             reuseExistingChunk: true,
             enforce: true,
-            maxSize: 3000000
+            maxSize: 1000
           }
         }
       }
@@ -182,8 +186,8 @@ module.exports = env => {
           toType: "dir"
         },
         {
-          from: path.join(root, "src", "assets"),
-          to: path.join(outputPath, "assets"),
+          from: path.join(root, "src", "store-assets"),
+          to: path.join(outputPath, "store-assets"),
           toType: "dir"
         }
       ]),

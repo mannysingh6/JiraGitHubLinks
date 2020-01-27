@@ -14,6 +14,14 @@ const handleGetPullRequests = ({ issue }: { issue: string }, sender: xbrowser.ru
   return gitHubController.searchForPullRequest(issue);
 };
 
+const handleGetListOfCommands = async () => {
+  return ['lenovo shares', 'sprint', 'invision', 'confluence'];
+};
+
+const handleExecuteCommand = async ({ cmd }: { cmd: string }, sender: xbrowser.runtime.MessageSender) => {
+  console.log('EXECUTE CMD', cmd);
+};
+
 class InboundMessages {
 
   private listener!: MessageHandlersType;
@@ -24,7 +32,9 @@ class InboundMessages {
      */
     this.listener = listenForRuntimeMessages(new Map<Operation, MessageHandlersType>([
       [Operation.LaunchGithubLogin, handleLaunchGithubLogin],
-      [Operation.GetPullRequests, handleGetPullRequests]
+      [Operation.GetPullRequests, handleGetPullRequests],
+      [Operation.GetListOfCommands, handleGetListOfCommands],
+      [Operation.ExecuteCommand, handleExecuteCommand]
     ]));
   }
 

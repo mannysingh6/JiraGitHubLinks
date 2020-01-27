@@ -7,6 +7,10 @@ export enum Operation {
   ResetGithubContentScript,
   ResetJiraContentScript,
   GetPullRequests,
+  PingSpotlightScript,
+  ToggleSpotlight,
+  GetListOfCommands,
+  ExecuteCommand
 }
 
 /**

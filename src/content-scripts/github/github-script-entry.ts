@@ -1,5 +1,5 @@
-import { contentScript } from './content-script';
 import { destruct } from "./destructor";
+import { contentScript } from './github-script';
 
 window.debugMessaging = DEBUG_MESSAGING_ENABLED;
 
