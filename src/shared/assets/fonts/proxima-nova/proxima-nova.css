@@ -1,0 +1,98 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 2910422, 2014-10-27T16:05:28-0400
+ *
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are
+ * explicitly restricted from using the Licensed Webfonts(s).
+ *
+ * You may obtain a valid license at the URLs below.
+ *
+ * Webfont: ProximaNovaA-Thin by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-thin/
+ *
+ * Webfont: ProximaNovaS-Thin by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-thin/
+ *
+ * Webfont: ProximaNovaS-Extrabld by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-extrabld/
+ *
+ * Webfont: ProximaNovaA-Extrabld by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-extrabld/
+ *
+ * Webfont: ProximaNovaA-Bold by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-bold/
+ *
+ * Webfont: ProximaNovaS-Regular by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-regular/
+ *
+ * Webfont: ProximaNovaS-Semibold by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-semibold/
+ *
+ * Webfont: ProximaNovaS-Bold by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-bold/
+ *
+ * Webfont: ProximaNovaA-Light by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-light/
+ *
+ * Webfont: ProximaNovaA-Semibold by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-semibold/
+ *
+ * Webfont: ProximaNovaS-Black by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-black/
+ *
+ * Webfont: ProximaNovaA-Regular by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-regular/
+ *
+ * Webfont: ProximaNovaA-Black by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/a-black/
+ *
+ * Webfont: ProximaNovaS-Light by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/s-light/
+ *
+ * Webfont: ProximaNovaT-Thin by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/thin/
+ *
+ * Webfont: ProximaNova-Extrabld by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/extrabld/
+ *
+ * Webfont: ProximaNova-Black by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/black/
+ *
+ * Webfont: ProximaNova-Light by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/light/
+ *
+ * Webfont: ProximaNova-Semibold by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/semibold/
+ *
+ * Webfont: ProximaNova-Regular by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/regular/
+ *
+ * Webfont: ProximaNova-Bold by Mark Simonson
+ * URL: http://www.myfonts.com/fonts/marksimonson/proxima-nova/bold/
+ *
+ *
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2910422
+ * Licensed pageviews: 1,000,000
+ * Webfonts copyright: Copyright (c) Mark Simonson, 2005. All rights reserved.
+ *
+ * © 2014 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2c68d6");
+
+@font-face {font-family: 'ProximaNova-Regular';
+src: url('webfonts/2C68D6_13_0.eot');
+src: url('webfonts/2C68D6_13_0.eot?#iefix') format('embedded-opentype'),
+url('webfonts/2C68D6_13_0.woff2') format('woff2'),
+url('webfonts/2C68D6_13_0.woff') format('woff'),
+url('webfonts/2C68D6_13_0.ttf') format('truetype');}
+
+@font-face {font-family: 'ProximaNova-Bold';
+src: url('webfonts/2C68D6_14_0.eot');
+src: url('webfonts/2C68D6_14_0.eot?#iefix') format('embedded-opentype'),
+url('webfonts/2C68D6_14_0.woff2') format('woff2'),
+url('webfonts/2C68D6_14_0.woff') format('woff'),
+url('webfonts/2C68D6_14_0.ttf') format('truetype');}

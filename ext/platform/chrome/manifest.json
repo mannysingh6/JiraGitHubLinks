@@ -14,7 +14,7 @@
     "persistent": true
   },
   "options_ui": {
-    "page": "settings.html"
+    "page": "options.html"
   },
   "commands": {
     "toggle-spotlight": {
@@ -55,7 +55,6 @@
     "storage",
     "contextMenus",
     "identity",
-    "webNavigation",
     "tabs",
     "activeTab",
     "https://api.github.com/*",

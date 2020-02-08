@@ -1,3 +1,4 @@
+import '@/shared/assets/fonts/proxima-nova/proxima-nova.css';
 import Vue from "vue";
 import vuetify from '../shared/plugins/vuetify';
 import App from "./App.vue";

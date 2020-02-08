@@ -23,7 +23,7 @@ module.exports = env => {
 
   const webExtensionPolyfill = `./ext/platform/web-extension-polyfills/${env.platform}-browser-polyfill.ts`;
   const commonChunks = ["lib/xbrowser-polyfill"];
-  const templateNames = ["background", "popup", "settings", "spotlight"];
+  const templateNames = ["background", "spotlight", "popup", "settings", "options"];
 
   return {
     entry: {
@@ -34,7 +34,8 @@ module.exports = env => {
       "scripts/spotlight-content-script": "./src/content-scripts/spotlight/spotlight-script-entry.ts",
       "scripts/spotlight": "./src/spotlight/spotlight.ts",
       "scripts/popup": "./src/popup/popup.ts",
-      "scripts/settings": "./src/settings/settings.ts"
+      "scripts/settings": "./src/settings/settings.ts",
+      'scripts/options': './src/settings/options.ts'
     },
 
     output: {
@@ -56,6 +57,7 @@ module.exports = env => {
       minimize: false,
       splitChunks: {
         automaticNameDelimiter: "-",
+        minSize: 1000,
         cacheGroups: {
           default: false,
           vendors: false,
@@ -71,7 +73,7 @@ module.exports = env => {
             // priority
             priority: 20,
             // max size (in bytes)
-            maxSize: 1000
+            maxSize: 20000
           },
           // common chunk
           common: {
@@ -83,7 +85,7 @@ module.exports = env => {
             priority: 10,
             reuseExistingChunk: true,
             enforce: true,
-            maxSize: 1000
+            maxSize: 20000
           }
         }
       }

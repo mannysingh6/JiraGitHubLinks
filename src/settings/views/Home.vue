@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex">
-    <v-navigation-drawer permanent height="100vh">
+    <v-navigation-drawer permanent height="100vh" style="flex-shrink: 0">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">

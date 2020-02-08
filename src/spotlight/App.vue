@@ -84,9 +84,9 @@ export default class App extends Vue {
   font-family: ProximaNova-Regular, "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--v-primaryGrey-base);
+  /* color: var(--v-primaryGrey-base); */
   font-size: 14px;
-  background: none;
+  /* background: none; */
 }
 .bg-overlay {
   position: absolute;

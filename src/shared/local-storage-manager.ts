@@ -1,8 +1,11 @@
+import { Command } from './models/command';
 import { User } from './models/user';
 
 export enum LocalStorageKey {
   AccessToken = 'accessToken',
-  User = 'user'
+  User = 'user',
+  JiraUrl = 'jiraUrl',
+  Commands = 'commands'
 }
 
 export class LocalStorageManager {
@@ -35,6 +38,22 @@ export class LocalStorageManager {
     return this.set(LocalStorageKey.User, user);
   }
 
+  public static getJiraUrl(): Promise<string> {
+    return this.get<string>(LocalStorageKey.JiraUrl, 'https://jira.tc.lenovo.com');
+  }
+
+  public static setJiraUrl(url: string): Promise<void> {
+    return this.set(LocalStorageKey.JiraUrl, url);
+  }
+
+  public static getCommands(): Promise<Command[]> {
+    return this.get<Command[]>(LocalStorageKey.Commands, []);
+  }
+
+  public static setCommands(commands: Command[]): Promise<void> {
+    return this.set(LocalStorageKey.Commands, commands);
+  }
+
   /**
    * Clears the authentication information, such as oauth token from extension storage
    */
@@ -53,7 +72,9 @@ export class LocalStorageManager {
   public static resetLocalStorage() {
     return xbrowser.storage.local.remove([
       LocalStorageKey.AccessToken,
-      LocalStorageKey.User
+      LocalStorageKey.User,
+      LocalStorageKey.JiraUrl,
+      LocalStorageKey.Commands
     ]);
   }
 

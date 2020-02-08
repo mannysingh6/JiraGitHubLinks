@@ -1,3 +1,4 @@
+import '@/shared/assets/fonts/proxima-nova/proxima-nova.css';
 import Vue from "vue";
 import VueObserveVisibility from 'vue-observe-visibility';
 import vuetify from '../shared/plugins/vuetify';
