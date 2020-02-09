@@ -2,7 +2,7 @@
   <div>
     <v-app>
       <v-content>
-        <div class="bg-overlay" @click="backgroundClicked"></div>
+        <div class="bg-overlay" @click="close"></div>
         <div class="d-flex ma-12 pt-12 justify-center" v-observe-visibility="visibilityChanged">
           <v-autocomplete
             class="textbox"
@@ -11,7 +11,6 @@
             :items="listOfCmds"
             filled
             solo
-            background-color="white"
             autofocus
             hide-no-data
             prepend-inner-icon="mdi-console"
@@ -30,6 +29,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { VAutocomplete } from "vuetify/lib";
 import { sendRuntimeMessage, Operation } from "../shared/extension-message";
+import { Command } from "../shared/models/command";
 
 @Component
 export default class App extends Vue {
@@ -37,15 +37,14 @@ export default class App extends Vue {
   public listOfCmds: string[] = [];
 
   public async created() {
-    const commands = await sendRuntimeMessage<string[]>({
-      operation: Operation.GetListOfCommands
-    });
-    this.listOfCmds = commands || [];
+    this.refreshCmds();
   }
 
-  public backgroundClicked() {
-    console.log("background clicked");
+  public close() {
     try {
+      this.searchInput = null;
+      (this.$refs["textbox"] as any).setValue("");
+      (this.$refs["textbox"] as any).isMenuActive = false;
       parent.postMessage(
         {
           operation: Operation.ToggleSpotlight
@@ -63,10 +62,7 @@ export default class App extends Vue {
         operation: Operation.ExecuteCommand,
         data: { cmd: this.searchInput }
       });
-
-      this.searchInput = null;
-      (this.$refs["textbox"] as any).setValue("");
-      (this.$refs["textbox"] as any).isMenuActive = false;
+      this.close();
     });
   }
 
@@ -74,7 +70,15 @@ export default class App extends Vue {
     isVisible: boolean,
     entry: IntersectionObserverEntry
   ) {
+    this.refreshCmds();
     (this.$refs["textbox"] as HTMLInputElement).focus();
+  }
+
+  private async refreshCmds() {
+    const commands = await sendRuntimeMessage<Command[]>({
+      operation: Operation.GetListOfCommands
+    });
+    this.listOfCmds = (commands && commands.map(c => c.name)) || [];
   }
 }
 </script>

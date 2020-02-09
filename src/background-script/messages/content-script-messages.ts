@@ -1,4 +1,6 @@
 import { listenForRuntimeMessages, MessageHandlersType, Operation } from "@/shared/extension-message";
+import { LocalStorageManager } from '@/shared/local-storage-manager';
+import { Command } from '@/shared/models/command';
 import { resetAllTabs } from '@/shared/util/tabs';
 import { gitHubController } from '../controllers/github-controller';
 
@@ -14,12 +16,17 @@ const handleGetPullRequests = ({ issue }: { issue: string }, sender: xbrowser.ru
   return gitHubController.searchForPullRequest(issue);
 };
 
-const handleGetListOfCommands = async () => {
-  return ['lenovo shares', 'sprint', 'invision', 'confluence'];
+const handleGetListOfCommands = async (): Promise<Command[]> => {
+  return LocalStorageManager.getCommands();
 };
 
 const handleExecuteCommand = async ({ cmd }: { cmd: string }, sender: xbrowser.runtime.MessageSender) => {
-  console.log('EXECUTE CMD', cmd);
+  const commands = await LocalStorageManager.getCommands();
+  const result = commands.find(c => c.name === cmd);
+  if (result) {
+    const url = result.url;
+    xbrowser.tabs.create({ url });
+  }
 };
 
 class InboundMessages {
