@@ -47,7 +47,13 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="commands" class="elevation-1 data-table">
+    <v-data-table
+      :headers="headers"
+      :items="commands"
+      :footer-props="{'items-per-page-options':[5, 10, 25, 50]}"
+      :options="{ itemsPerPage: 25 }"
+      class="elevation-1 data-table"
+    >
       <template v-slot:item.name="{ item }">
         <div class="name-cell" v-line-clamp="1">{{ item.name }}</div>
       </template>
@@ -102,6 +108,9 @@ export default class Commands extends Vue {
   public dialogItemIndex: number = -1;
 
   public validForm = false;
+  public pagination = {
+    rowsPerPage: 30
+  };
 
   @Watch("dialogOpen")
   public onDialogOpenChange(newValue: boolean, oldValue: boolean) {
@@ -135,7 +144,7 @@ export default class Commands extends Vue {
   }
 
   public async created() {
-    this.commands = await LocalStorageManager.getCommands();
+    this.commands = (await LocalStorageManager.getCommands()).reverse();
   }
 
   public editCommand(command: Command) {
@@ -166,7 +175,7 @@ export default class Commands extends Vue {
     if (this.dialogItemIndex > -1) {
       Object.assign(this.commands[this.dialogItemIndex], this.dialogItem);
     } else {
-      this.commands.push(this.dialogItem);
+      this.commands.unshift(this.dialogItem);
     }
     LocalStorageManager.setCommands(this.commands);
     this.closeDialog();

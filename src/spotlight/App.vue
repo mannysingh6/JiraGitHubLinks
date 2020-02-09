@@ -79,6 +79,7 @@ export default class App extends Vue {
       operation: Operation.GetListOfCommands
     });
     this.listOfCmds = (commands && commands.map(c => c.name)) || [];
+    this.listOfCmds = this.listOfCmds.reverse();
   }
 }
 </script>
