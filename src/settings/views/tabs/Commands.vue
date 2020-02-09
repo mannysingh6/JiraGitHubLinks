@@ -1,5 +1,5 @@
 <template>
-  <div class="d-block ma-6" style="max-width: 900px; width:100%;">
+  <div class="d-block pa-6" style="max-width: 900px; width:100%; height: 100vh; overflow: scroll">
     <v-toolbar flat>
       <v-toolbar-title>Commands</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -8,7 +8,7 @@
           <v-btn color="primary" dark class="mb-2" v-on="on">Add Command</v-btn>
         </template>
         <v-card>
-          <v-form v-model="validForm" @submit.prevent="saveCommand">
+          <v-form ref="form" v-model="validForm" @submit.prevent="saveCommand">
             <v-card-title>
               <span class="headline">{{ dialogItemIndex === -1 ? 'New Command' : 'Edit Command' }}</span>
             </v-card-title>
@@ -19,13 +19,20 @@
                   <v-col cols="12">
                     <v-text-field
                       v-model="dialogItem.name"
-                      :rules="nameRules"
+                      :rules="nameRules()"
                       label="Command"
+                      autocomplete="off"
                       required
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="dialogItem.url" :rules="urlRules" label="Url" required></v-text-field>
+                    <v-text-field
+                      v-model="dialogItem.url"
+                      :rules="urlRules()"
+                      label="Url"
+                      autocomplete="off"
+                      required
+                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -40,20 +47,28 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="commands" class="elevation-1">
+    <v-data-table :headers="headers" :items="commands" class="elevation-1 data-table">
+      <template v-slot:item.name="{ item }">
+        <div class="name-cell" v-line-clamp="1">{{ item.name }}</div>
+      </template>
+      <template v-slot:item.url="{ item }">
+        <div v-line-clamp="2">{{ item.url }}</div>
+      </template>
       <template v-slot:item.action="{ item }">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="editCommand(item)">mdi-pencil</v-icon>
-          </template>
-          <span>Edit</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-icon small v-on="on" @click="deleteCommand(item)">mdi-delete</v-icon>
-          </template>
-          <span>Delete</span>
-        </v-tooltip>
+        <div class="actions-cell">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon small class="mr-2" v-on="on" @click="editCommand(item)">mdi-pencil</v-icon>
+            </template>
+            <span>Edit</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-icon small v-on="on" @click="deleteCommand(item)">mdi-delete</v-icon>
+            </template>
+            <span>Delete</span>
+          </v-tooltip>
+        </div>
       </template>
     </v-data-table>
   </div>
@@ -87,20 +102,36 @@ export default class Commands extends Vue {
   public dialogItemIndex: number = -1;
 
   public validForm = false;
-  public nameRules = [(v: string) => !!v || "Command name is required"];
-  public urlRules = [
-    (v: string) => !!v || "Url is required",
-    (v: string) =>
-      validate.validators.url(v, {
-        message: "Must be a valid url",
-        schemes: [".+"],
-        allowLocal: true
-      })
-  ];
 
   @Watch("dialogOpen")
-  public onDialogOpenChangee(newValue: boolean, oldValue: boolean) {
+  public onDialogOpenChange(newValue: boolean, oldValue: boolean) {
     newValue || this.closeDialog();
+  }
+
+  public nameRules() {
+    return [
+      (v: string) => !!v || "Command name is required",
+      (v: string) => {
+        const old = this.commands[this.dialogItemIndex];
+        return (
+          !this.commands.find(
+            c => c.name === v && (old ? c.name !== old.name : true)
+          ) || "Must be a unique name"
+        );
+      }
+    ];
+  }
+
+  public urlRules() {
+    return [
+      (v: string) => !!v || "Url is required",
+      (v: string) =>
+        validate.validators.url(v, {
+          message: "Must be a valid url",
+          schemes: [".+"],
+          allowLocal: true
+        }) || true
+    ];
   }
 
   public async created() {
@@ -126,6 +157,7 @@ export default class Commands extends Vue {
     this.dialogOpen = false;
     setTimeout(() => {
       this.dialogItem = Object.assign({}, this.defaultCommand);
+      (this.$refs.form as HTMLFormElement).reset();
       this.dialogItemIndex = -1;
     }, 300);
   }
@@ -141,3 +173,12 @@ export default class Commands extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.name-cell {
+  min-width: 160px;
+}
+.actions-cell {
+  white-space: nowrap;
+}
+</style>
