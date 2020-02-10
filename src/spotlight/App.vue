@@ -84,13 +84,21 @@ export default class App extends Vue {
 </script>
 
 <style>
+.v-application {
+  background: none !important;
+}
 .bg-overlay {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+}
+.v-application.theme--light .bg-overlay {
   background: rgba(0, 0, 0, 0.3);
+}
+.v-application.theme--dark .bg-overlay {
+  background: rgba(0, 0, 0, 0.8);
 }
 .textbox {
   max-width: 600px;
