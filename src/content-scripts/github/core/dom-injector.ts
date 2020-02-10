@@ -14,7 +14,7 @@ export const injectJiraLink = (issue: string) => {
     return true;
   }
 
-  const searchValue = issue.replace('-', '.');
-  const re = new RegExp(searchValue, 'ig');
-  headerTag.innerHTML = headerTag.innerHTML.replace(re, `<a href="https://jira.tc.lenovo.com/browse/${issue}" target="_blank">$&</a>`);
+  const jiraLink = issue.replace(' ', '-');
+  const re = new RegExp(issue, 'ig');
+  headerTag.innerHTML = headerTag.innerHTML.replace(re, `<a href="https://jira.tc.lenovo.com/browse/${jiraLink}" target="_blank">$&</a>`);
 }

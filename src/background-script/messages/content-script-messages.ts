@@ -1,6 +1,7 @@
 import { listenForRuntimeMessages, MessageHandlersType, Operation } from "@/shared/extension-message";
 import { LocalStorageManager } from '@/shared/local-storage-manager';
 import { Command } from '@/shared/models/command';
+import { findJiraIssue } from '@/shared/util/issue-regex';
 import { resetAllTabs } from '@/shared/util/tabs';
 import { gitHubController } from '../controllers/github-controller';
 
@@ -26,6 +27,14 @@ const handleExecuteCommand = async ({ cmd }: { cmd: string }, sender: xbrowser.r
   const result = commands.find(c => c.name === cmd);
   if (result) {
     const url = result.url;
+    xbrowser.tabs.create({ url });
+  }
+
+  const jiraIssue = findJiraIssue(cmd);
+  if (jiraIssue) {
+    const formatedJiraIssue = jiraIssue.replace(' ', '-');
+    const jiraUrl = await LocalStorageManager.getJiraUrl();
+    const url = `${jiraUrl}/browse/${formatedJiraIssue}`;
     xbrowser.tabs.create({ url });
   }
 };

@@ -7,6 +7,7 @@ const handlePingSpotlightScript = (data: any, sender: xbrowser.runtime.MessageSe
 
 const handleToggleSpotlight = (data: any, sender: xbrowser.runtime.MessageSender) => {
   spotlightController.toggleIframe();
+  return true;
 };
 
 class InboundMessages {
