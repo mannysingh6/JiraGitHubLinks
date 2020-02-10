@@ -1,4 +1,6 @@
-export const injectJiraLink = (issue: string) => {
+import { LocalStorageManager } from '@/shared/local-storage-manager';
+
+export const injectJiraLink = async (issue: string) => {
 
   const headerDiv = document.getElementById('partial-discussion-header');
   if (!headerDiv) {
@@ -14,7 +16,8 @@ export const injectJiraLink = (issue: string) => {
     return true;
   }
 
+  const jiraUrl = await LocalStorageManager.getJiraUrl();
   const jiraLink = issue.replace(' ', '-');
   const re = new RegExp(issue, 'ig');
-  headerTag.innerHTML = headerTag.innerHTML.replace(re, `<a href="https://jira.tc.lenovo.com/browse/${jiraLink}" target="_blank">$&</a>`);
+  headerTag.innerHTML = headerTag.innerHTML.replace(re, `<a href="${jiraUrl}/browse/${jiraLink}" target="_blank">$&</a>`);
 }
