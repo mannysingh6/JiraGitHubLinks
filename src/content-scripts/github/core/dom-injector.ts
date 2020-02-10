@@ -1,4 +1,4 @@
-import { LocalStorageManager } from '@/shared/local-storage-manager';
+import { buildJiraLink } from '@/shared/util/jira-util';
 
 export const injectJiraLink = async (issue: string) => {
 
@@ -16,8 +16,7 @@ export const injectJiraLink = async (issue: string) => {
     return true;
   }
 
-  const jiraUrl = await LocalStorageManager.getJiraUrl();
-  const jiraLink = issue.replace(' ', '-');
+  const url = await buildJiraLink(issue);
   const re = new RegExp(issue, 'ig');
-  headerTag.innerHTML = headerTag.innerHTML.replace(re, `<a href="${jiraUrl}/browse/${jiraLink}" target="_blank">$&</a>`);
+  headerTag.innerHTML = headerTag.innerHTML.replace(re, `<a href="${url}" target="_blank">$&</a>`);
 }

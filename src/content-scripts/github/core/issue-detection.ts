@@ -1,4 +1,4 @@
-import { findJiraIssue } from '@/shared/util/issue-regex';
+import { findJiraIssue } from '@/shared/util/jira-util';
 
 export const detectIssue = () => {
 
