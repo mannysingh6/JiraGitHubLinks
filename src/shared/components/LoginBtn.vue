@@ -9,15 +9,9 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop, Emit } from "vue-property-decorator";
-import { VBtn, VIcon } from "vuetify/lib";
 import { getPopupApi } from "../../popup/popup-api-util";
 
-@Component({
-  components: {
-    VBtn,
-    VIcon
-  }
-})
+@Component
 export default class LoginBtn extends Vue {
   public loading = false;
 

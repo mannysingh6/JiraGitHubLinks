@@ -7,14 +7,3 @@
     </v-content>
   </v-app>
 </template>
-
-<style>
-#app {
-  font-family: ProximaNova-Regular, "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* color: var(--v-primaryGrey-base); */
-  font-size: 14px;
-  /* background: #263238; */
-}
-</style>

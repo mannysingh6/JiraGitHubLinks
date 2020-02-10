@@ -1,15 +1,19 @@
 <template>
-  <div class="align-center mt-auto">
-    <v-list class dense>
+  <div class="mt-auto">
+    <v-list dense>
       <v-list-item-group>
-        <v-list-item dense :key="0" @click="onSettingsClick()">
-          <v-list-item-content>Settings</v-list-item-content>
+        <v-list-item :key="0" @click="onSettingsClick()">
+          <v-list-item-content>
+            <v-list-item-title>Settings</v-list-item-title>
+          </v-list-item-content>
           <v-list-item-icon>
             <v-icon>mdi-settings</v-icon>
           </v-list-item-icon>
         </v-list-item>
-        <v-list-item dense :key="1" @click="onLogoutClick()">
-          <v-list-item-content>Logout</v-list-item-content>
+        <v-list-item :key="1" @click="onLogoutClick()">
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
           <v-list-item-icon>
             <v-icon>mdi-logout-variant</v-icon>
           </v-list-item-icon>
@@ -24,9 +28,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { getPopupApi } from "../popup-api-util";
 
-@Component({
-  components: {}
-})
+@Component
 export default class Home extends Vue {
   public loading = false;
 

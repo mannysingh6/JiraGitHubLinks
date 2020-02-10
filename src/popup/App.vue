@@ -15,15 +15,8 @@
 
 <style>
 #app {
-  font-family: ProximaNova-Regular, "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   height: 170px;
   width: 250px;
-  /* color: var(--v-primaryGrey-base); */
-  font-size: 14px;
-  /* background: white; */
-  text-align: center;
 }
 .main {
   height: 100vh;

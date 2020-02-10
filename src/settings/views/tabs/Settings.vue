@@ -18,9 +18,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { LocalStorageManager } from "@/shared/local-storage-manager";
 
-@Component({
-  components: {}
-})
+@Component
 export default class Settings extends Vue {
   public jiraUrl = "";
 

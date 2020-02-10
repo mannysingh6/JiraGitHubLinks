@@ -44,9 +44,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-@Component({
-  components: {}
-})
+@Component
 export default class Home extends Vue {
   public selectedNavItem = 0;
 }

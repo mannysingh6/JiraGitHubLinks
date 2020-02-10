@@ -1,52 +1,5 @@
 <template>
   <div class="d-block pa-6" style="max-width: 900px; width:100%; height: 100vh; overflow: scroll">
-    <v-toolbar flat>
-      <v-toolbar-title>Commands</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-dialog v-model="dialogOpen" max-width="500px">
-        <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">Add Command</v-btn>
-        </template>
-        <v-card>
-          <v-form ref="form" v-model="validForm" @submit.prevent="saveCommand">
-            <v-card-title>
-              <span class="headline">{{ dialogItemIndex === -1 ? 'New Command' : 'Edit Command' }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="dialogItem.name"
-                      :rules="nameRules()"
-                      label="Command"
-                      autocomplete="off"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="dialogItem.url"
-                      :rules="urlRules()"
-                      label="Url"
-                      autocomplete="off"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn text @click="closeDialog">Cancel</v-btn>
-              <v-btn text type="submit" :disabled="!validForm">Save</v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
     <v-data-table
       :headers="headers"
       :items="commands"
@@ -54,6 +7,57 @@
       :options="{ itemsPerPage: 25 }"
       class="elevation-1 data-table"
     >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <h1>Commands</h1>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialogOpen" max-width="500px">
+            <template v-slot:activator="{ on }">
+              <v-btn color="primary" dark class="mb-2" v-on="on">Add Command</v-btn>
+            </template>
+            <v-card>
+              <v-form ref="form" v-model="validForm" @submit.prevent="saveCommand">
+                <v-card-title>
+                  <span
+                    class="headline"
+                  >{{ dialogItemIndex === -1 ? 'New Command' : 'Edit Command' }}</span>
+                </v-card-title>
+
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-text-field
+                          v-model="dialogItem.name"
+                          :rules="nameRules()"
+                          label="Command"
+                          autocomplete="off"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field
+                          v-model="dialogItem.url"
+                          :rules="urlRules()"
+                          label="Url"
+                          autocomplete="off"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn text @click="closeDialog">Cancel</v-btn>
+                  <v-btn text type="submit" :disabled="!validForm">Save</v-btn>
+                </v-card-actions>
+              </v-form>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
       <template v-slot:item.name="{ item }">
         <div class="name-cell" v-line-clamp="1">{{ item.name }}</div>
       </template>
@@ -88,9 +92,7 @@ import { LocalStorageManager } from "@/shared/local-storage-manager";
 import { Watch } from "vue-property-decorator";
 import validate from "validate.js";
 
-@Component({
-  components: {}
-})
+@Component
 export default class Commands extends Vue {
   public dialogOpen = false;
   public headers = [

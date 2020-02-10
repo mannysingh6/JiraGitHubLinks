@@ -21,6 +21,7 @@ const handleGetListOfCommands = async (): Promise<Command[]> => {
 };
 
 const handleExecuteCommand = async ({ cmd }: { cmd: string }, sender: xbrowser.runtime.MessageSender) => {
+  console.log('execute command:', cmd);
   const commands = await LocalStorageManager.getCommands();
   const result = commands.find(c => c.name === cmd);
   if (result) {

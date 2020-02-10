@@ -27,7 +27,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { VAutocomplete } from "vuetify/lib";
 import { sendRuntimeMessage, Operation } from "../shared/extension-message";
 import { Command } from "../shared/models/command";
 
@@ -85,14 +84,6 @@ export default class App extends Vue {
 </script>
 
 <style>
-#app {
-  font-family: ProximaNova-Regular, "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* color: var(--v-primaryGrey-base); */
-  font-size: 14px;
-  /* background: none; */
-}
 .bg-overlay {
   position: absolute;
   top: 0;
