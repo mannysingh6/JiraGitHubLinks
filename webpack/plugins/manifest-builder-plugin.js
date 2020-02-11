@@ -78,14 +78,6 @@ ManifestBuilderPlugin.prototype.apply = function (compiler) {
       const json = JSON.parse(compilation.assets[manifestKey].source());
       compilation.assets[manifestKey] = makeAsset(modifyManifest(json, flattenCommonFiles, platform, compiler.options.mode));
 
-      // console.log('compilation.hooks', compilation.hooks);
-
-      // compilation.hooks.define.tap((definitions) => {
-      //   definitions[0]['VENDOR_FILES'] = JSON.stringify(flattenVendorFiles);
-      //   definitions[0]['COMMON_FILES'] = JSON.stringify(flattenCommonFiles);
-      //   return definitions;
-      // });
-
       // tapAsync requires us to invoke 'callback'
       callback();
     }

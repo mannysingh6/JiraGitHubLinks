@@ -17,7 +17,6 @@ import LoginBtn from "@/shared/components/LoginBtn.vue";
 export default class Login extends Vue {
   public onLoginSuccess() {
     this.$router.replace("/");
-    console.log("test");
   }
 }
 </script>

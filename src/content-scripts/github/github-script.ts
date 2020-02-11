@@ -27,7 +27,6 @@ class ContentScript {
   }
 
   private findIssue = async () => {
-    console.log('FINDING ISSUE');
     const issue = detectIssue();
     if (issue) {
       injectJiraLink(issue);

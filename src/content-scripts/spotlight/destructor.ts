@@ -2,8 +2,6 @@ import { contentScript } from './spotlight-script';
 
 export const destruct = () => {
 
-  console.log('destruct called');
-
   function destructor() {
     // Destruction is needed only once
     document.removeEventListener(destructionEvent, destructor);

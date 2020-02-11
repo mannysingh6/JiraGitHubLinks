@@ -47,7 +47,6 @@ class ContentScript {
         issue: issueNumber
       }
     });
-    console.log('response', response);
     if (response.json) {
       injectPullRequests(response.json);
     }
