@@ -183,8 +183,8 @@ module.exports = env => {
           toType: "dir"
         },
         {
-          from: path.join(root, "src", "store-assets"),
-          to: path.join(outputPath, "store-assets"),
+          from: path.join(root, "src", "store-assets", "icons"),
+          to: path.join(outputPath, "icons"),
           toType: "dir"
         }
       ]),
