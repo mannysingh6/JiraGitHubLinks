@@ -9,7 +9,7 @@ class ContentScript {
 
   public init = async () => {
     inboundMessages.startListening();
-    this.findIssue();
+    await this.findIssue();
     this.alterLinks();
     this.domObserver.startObserver(document.documentElement, this.domObserverCallback);
   }
@@ -29,9 +29,9 @@ class ContentScript {
   }
 
   private findIssue = async () => {
-    const issue = detectIssue();
+    const issue = await detectIssue();
     if (issue) {
-      injectJiraLink(issue);
+      await injectJiraLink(issue);
     }
   }
 

@@ -5,7 +5,9 @@ export enum LocalStorageKey {
   AccessToken = 'accessToken',
   User = 'user',
   JiraUrl = 'jiraUrl',
-  Commands = 'commands'
+  Commands = 'commands',
+  ProjectKeys = 'projectKeys',
+  DefaultKey = 'defaultKey'
 }
 
 export class LocalStorageManager {
@@ -52,6 +54,22 @@ export class LocalStorageManager {
 
   public static setCommands(commands: Command[]): Promise<void> {
     return this.set(LocalStorageKey.Commands, commands);
+  }
+
+  public static getProjectKeys(): Promise<string> {
+    return this.get<string>(LocalStorageKey.ProjectKeys, 'LUW,LSA,TEAMAC,CSS');
+  }
+
+  public static setProjectKeys(keys: string): Promise<void> {
+    return this.set(LocalStorageKey.ProjectKeys, keys);
+  }
+
+  public static getDefaultKey(): Promise<string> {
+    return this.get<string>(LocalStorageKey.DefaultKey, 'LUW');
+  }
+
+  public static setDefaultKey(key: string): Promise<void> {
+    return this.set(LocalStorageKey.DefaultKey, key);
   }
 
   /**

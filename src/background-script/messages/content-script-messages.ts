@@ -1,7 +1,7 @@
 import { listenForRuntimeMessages, MessageHandlersType, Operation } from "@/shared/extension-message";
 import { LocalStorageManager } from '@/shared/local-storage-manager';
 import { Command } from '@/shared/models/command';
-import { buildJiraLink, findJiraIssue } from '@/shared/util/jira-util';
+import { buildJiraIssueFromDefault, buildJiraLink, findJiraIssue } from '@/shared/util/jira-util';
 import { resetAllTabs } from '@/shared/util/tabs';
 import { gitHubController } from '../controllers/github-controller';
 
@@ -29,10 +29,20 @@ const handleExecuteCommand = async ({ cmd }: { cmd: string }, sender: xbrowser.r
     xbrowser.tabs.create({ url });
   }
 
-  const jiraIssue = findJiraIssue(cmd);
+  const projectKeys = await LocalStorageManager.getProjectKeys();
+  const jiraIssue = findJiraIssue(cmd, projectKeys);
   if (jiraIssue) {
     const url = await buildJiraLink(jiraIssue);
     xbrowser.tabs.create({ url });
+    return true;
+  }
+
+  const defaultKey = await LocalStorageManager.getDefaultKey();
+  const jiraIssueFromDefault = buildJiraIssueFromDefault(cmd, defaultKey);
+  if (jiraIssueFromDefault) {
+    const url = await buildJiraLink(jiraIssueFromDefault);
+    xbrowser.tabs.create({ url });
+    return true;
   }
 };
 
