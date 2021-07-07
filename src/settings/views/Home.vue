@@ -21,7 +21,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>Settings</v-list-item-title>
+              <v-list-item-title>Settings Test</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item :key="1" link to="/commands">
